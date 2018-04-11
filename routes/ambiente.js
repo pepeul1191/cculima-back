@@ -118,24 +118,27 @@ module.exports = [
       var eliminados = data['eliminados'];
       var _id = request.query._id;
       var error = false;
+      var promises = [];
       eliminados.forEach(function(eliminado) {
 
-        var demo = function() {
-          return models.Ambiente.findByIdAndRemove(eliminado, function(err, doc){
+          promises.push(models.Ambiente.findByIdAndRemove(eliminado, function(err, doc){
             if (err){
-              console.log("TRUE");
+              //console.log("TRUE");
               return true;
             }else{
-              console.log("FALSE");
+              //console.log("FALSE");
               return false;
             }
-          });
-        }
+          }));
 
-        console.log("1 +++++++++++++++++++++++++++");
-        console.log(demo());
-        console.log("2 +++++++++++++++++++++++++++");
       });
+
+
+      promises.then(values => {
+        console.log(values); // [3, 1337, "foo"] 
+      });
+
+      reply(JSON.stringify('promises'));
     }
   },
 ];

@@ -54,6 +54,16 @@ var Servicio = db.mongoose.model('servicios',
   )
 );
 
+var OtroServicio = db.mongoose.model('servicios_otros',
+  new db.Schema(
+    {
+      titulo: { type: String, required: true },
+      descripcion: { type: String, required: true },
+    }
+  )
+);
+
 exports.Blog = Blog;
 exports.Ambiente = Ambiente;
 exports.Servicio = Servicio;
+exports.OtroServicio = OtroServicio;
