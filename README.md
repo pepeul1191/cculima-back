@@ -35,3 +35,4 @@ Fuentes:
 + https://stackoverflow.com/questions/7653080/adding-to-an-array-asynchronously-in-node-js
 + https://stackoverflow.com/questions/31331606/how-can-i-add-a-middleware-in-my-route
 + https://hapijs.com/tutorials/routing?lang=en_US
++ http://mongoosejs.com/docs/schematypes.html
