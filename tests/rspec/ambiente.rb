@@ -81,13 +81,31 @@ def editar
           :longitud => -76.971889,
           :direccion => 'Cruz Del Sur 206, Santiago de Surco 15023',
           :telefono => '(511) 4376767',
-          :foto_princial => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/Fotobannerteatro.png',
-          :foto_menu => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-300x200.png',
+          :foto_princial => {
+            :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/Fotobannerteatro.png',
+            :imagen_id => 'lkadjsflkadjsfkladjflas',
+          },
+          :foto_menu => {
+            :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-300x200.png',
+            :imagen_id => 'lkadjsflkadjsfkladjflas',
+          },
           :fotos => [
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-200x200.png',
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/fotosslide2teatro-250x250.png',
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/tetro-W-grande-250x250.png',
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/teatro3-250x250.png',
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-200x200.png',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            },
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/fotosslimagen_ide2teatro-250x250.png',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            },
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/tetro-W-grande-250x250.png',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            },
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/teatro3-250x250.png',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            }
           ],
         }
         url = 'ambiente/editar?data=' + ambiente.to_json

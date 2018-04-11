@@ -38,5 +38,22 @@ var Ambiente = db.mongoose.model('ambientes',
   )
 );
 
+var Servicio = db.mongoose.model('servicios',
+  new db.Schema(
+    {
+      titulo: { type: String, required: true },
+      descripcion: { type: String, required: true },
+      latitud: { type: Number, required: true },
+      longitud: { type: Number, required: true },
+      direccion: { type: String, required: true },
+      foto: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+    }
+  )
+);
+
 exports.Blog = Blog;
 exports.Ambiente = Ambiente;
+exports.Servicio = Servicio;
