@@ -41,7 +41,7 @@ def editar
       it '2.2 Editar servicio' do
         servicio = {
           :id => '5ace8e2bdb34b91ec3e954f4',
-          :titulo => 'Parking',
+          :titulo => 'Parkeo',
           :descripcion => 'Contamos con un estacionamiento con capacidad para 210 autos y vigilancia las 24 horas, en el cual está permitido también el ingreso en bicicletas y motocicletas. El acceso a esta área es gratuito, solo se requiere mostrar en el ingreso la entrada para cualquiera de los diferentes espacios del circuito del Centro Cultural. XD',
         }
         url = 'servicio/otro/editar?data=' + servicio.to_json
@@ -57,4 +57,5 @@ def editar
   end
 end
 
-crear
+#crear
+editar
