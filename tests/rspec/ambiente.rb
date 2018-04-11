@@ -4,47 +4,39 @@ require 'json'
 
 def crear
   RSpec.describe App do
-    describe '1. Crear visita: ' do
+    describe '1. Crear ambiente: ' do
       it '1.1 Conexión con backend' do
         url = 'test/conexion'
         test = App.new(url)
         test.get()
         expect(test.response.code).to eq(200)
       end
-      it '1.2 Crear visita' do
-        visitante = {
-          :dni => '70241720',
-          :nombres => 'José Jesús',
-          :paterno => 'Valdivia',
-          :materno => 'Caballero',
-          :telefono => '9887731975',
-          :correos => 'pepito@ulima.edu.pe',
-          :placa => 'B6Q-388',
-          :vehiculo => 'Hyundai Accent 2011',
-        }.to_json
-        contacto = {
-          :dni => 'Biopolímero a partir del almidón de papa',
-          :empleado_id => 2,
-          :codigo_empleado => 1,
-          :nombres => 'Karry Felix',
-          :paterno => 'Mickleburgh',
-          :materno => 'Jimpson',
-          :cargo => 'Secretaria',
-          :telefon => '987731000',
-          :correo => 'KaMick@ulima.edu.pe',
-        }.to_json
-        visita = {
-          :motivo => 'Biopolímero a partir del almidón de papa',
-          :dia => '12/12/2012',
-          :hora => '10am',
-        }.to_json
-        url = 'visita/crear?visitante=' + visitante + '&contacto=' + contacto + '&visita=' + visita
+      it '1.2 Crear ambiente' do
+        ambiente = {
+          :nombre => 'Teatro Central',
+          :subtitulo => 'Instalaciones cómodas. Atmósfera íntima. Cartelera polifacética. Nuestro Teatro Central.',
+          :parrafo_izq => 'Óptimamente preparada para posibilitar que cada puesta en escena —desde la más clásica hasta la más vanguardista— se multiplique con la gama de recursos con los que cuenta, en nuestro Teatro Central las obras y los espectáculos cobran vida ante la atenta mirada del auditorio. Un público que viaja en continuo vaivén de la emoción a la reflexión sobre los temas representados.',
+          :parrafo_der => 'Es en cada función que el trabajo de todos los que forman parte de la obra cobra sentido. En esos momentos, nuestro Teatro Central deja de ser un simple espacio físico para convertirse en el espacio para el cual fue creada: el lugar creativo que sensibiliza, cuestiona y amplía el horizonte cultural de cada uno de los espectadores.',
+          :latitud => -12.085693,
+          :longitud => -76.971889,
+          :direccion => 'Cruz Del Sur 206, Santiago de Surco 15023',
+          :telefono => '(511) 4376767',
+          :foto_princial => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/Fotobannerteatro.jpg',
+          :foto_menu => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-300x200.jpg',
+          :fotos => [
+            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-200x200.jpg',
+            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/fotosslide2teatro-250x250.jpg',
+            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/tetro-W-grande-250x250.jpg',
+            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/teatro3-250x250.jpg',
+          ],
+        }
+        url = 'ambiente/crear?data=' + ambiente.to_json
         test = App.new(url)
         test.post()
         puts test.response.body
         expect(test.response.code).to eq(200)
         expect(test.response.body).not_to include('error')
-        expect(test.response.body).to include('Se ha registrado la visita')
+        expect(test.response.body).to include('Se ha registrado el ambiente')
         expect(test.response.body).to include('success')
       end
     end
@@ -167,7 +159,7 @@ def listar
   end
 end
 
+crear
 #editar
-#crear
 #eliminar
-listar
+#listar

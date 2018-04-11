@@ -1,4 +1,4 @@
-## HapiJS NodeJS y MongoDB
+## Centro Cultural ULima Backend
 
 Instlación de software y dependencias:
 
@@ -11,6 +11,20 @@ Arrancar servicio:
 Arrancer servicio con autoreload con cambios:
 
     $ nodemon app.js
+
+### Centro Cultural Universidad de Lima
+
+https://www.centroculturalulima.com
+
+### Backup y Restore la Base de Datos Mongo
+
+Para realizar un backup de un base de datos incluyendo los stored functions.
+
+    $ mongodump --db cculima --out db
+
+Para restaurar
+
+    $ mongorestore -d cculima db/cculima
 
 ---
 
