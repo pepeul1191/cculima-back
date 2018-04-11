@@ -21,13 +21,31 @@ def crear
           :longitud => -76.971889,
           :direccion => 'Cruz Del Sur 206, Santiago de Surco 15023',
           :telefono => '(511) 4376767',
-          :foto_princial => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/Fotobannerteatro.jpg',
-          :foto_menu => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-300x200.jpg',
+          :foto_princial => {
+            :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/Fotobannerteatro.jpg',
+            :imagen_id => 'lkadjsflkadjsfkladjflas',
+          },
+          :foto_menu => {
+            :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-300x200.jpg',
+            :imagen_id => 'lkadjsflkadjsfkladjflas',
+          },
           :fotos => [
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-200x200.jpg',
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/fotosslide2teatro-250x250.jpg',
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/tetro-W-grande-250x250.jpg',
-            'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/teatro3-250x250.jpg',
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/07/teatro-W-200x200.jpg',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            },
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/fotosslimagen_ide2teatro-250x250.jpg',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            },
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/tetro-W-grande-250x250.jpg',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            },
+            {
+              :url => 'https://www.centroculturalulima.com/wp/wp-content/uploads/2016/06/teatro3-250x250.jpg',
+              :imagen_id => 'lkadjsflkadjsfkladjflas',
+            }
           ],
         }
         url = 'ambiente/crear?data=' + ambiente.to_json
@@ -149,7 +167,7 @@ def listar
   end
 end
 
-#crear
+crear
 #editar
-eliminar
+#eliminar
 #listar
