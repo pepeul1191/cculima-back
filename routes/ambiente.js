@@ -105,4 +105,37 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['POST'],
+    path: 'guardar',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var data = JSON.parse(request.query.data);
+      var eliminados = data['eliminados'];
+      var _id = request.query._id;
+      var error = false;
+      eliminados.forEach(function(eliminado) {
+
+        var demo = function() {
+          return models.Ambiente.findByIdAndRemove(eliminado, function(err, doc){
+            if (err){
+              console.log("TRUE");
+              return true;
+            }else{
+              console.log("FALSE");
+              return false;
+            }
+          });
+        }
+
+        console.log("1 +++++++++++++++++++++++++++");
+        console.log(demo());
+        console.log("2 +++++++++++++++++++++++++++");
+      });
+    }
+  },
 ];

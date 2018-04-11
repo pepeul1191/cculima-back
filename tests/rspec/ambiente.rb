@@ -87,36 +87,34 @@ end
 
 def eliminar
   RSpec.describe App do
-    describe '3. Eliminar visitas: ' do
+    describe '3. Eliminar ambientes: ' do
       it '3.1 Conexión con backend' do
         url = 'test/conexion'
         test = App.new(url)
         test.get()
         expect(test.response.code).to eq(200)
       end
-      it '3.2 Eliminar visitas' do
+      it '3.2 Eliminar ambientes' do
         data = {
           :nuevos => [
           ],
           :editados => [
           ],
           :eliminados => [
-            '5acccbd6ef09513d1f000001',
-            '5acccc07ef09513dec000001',
-            '5acccc13ef09513e4e000001',
-            '5acccc1aef09513eae000001',
-            '5acccc29ef09513f1c000001',
-            '5acccc3eef09513f9b000001',
-            '5acccc52ef09514019000001',
+            '5acd859113392c1330750e64',
+            '5acd86eda7404c13f2fd3e21',
+            '5acd8726a4059d143967fd93',
+            '5acd8813d4ca7d15ca54a0ca',
+            '5acd91515010cd18c66d5866',
           ]
         }.to_json
-        url = 'visita/guardar?data=' + data
+        url = 'ambiente/guardar?data=' + data
         test = App.new(url)
         test.post()
         puts test.response.body
         expect(test.response.code).to eq(200)
         expect(test.response.body).not_to include('error')
-        expect(test.response.body).to include('Se ha registrado los cambios en las visitas')
+        expect(test.response.body).to include('Se ha registrado los cambios en los ambientes')
         expect(test.response.body).to include('success')
       end
     end
@@ -152,6 +150,6 @@ def listar
 end
 
 #crear
-editar
-#eliminar
+#editar
+eliminar
 #listar
