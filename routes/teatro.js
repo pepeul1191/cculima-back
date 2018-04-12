@@ -107,4 +107,19 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['GET'],
+    path: 'obtener/{teatro_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var _id = request.params.teatro_id;
+      models.Teatro.findOne({_id: _id},function(err, doc){
+        reply(JSON.stringify(doc));
+      });
+    }
+  },
 ]

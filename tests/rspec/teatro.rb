@@ -134,5 +134,42 @@ def editar
   end
 end
 
+def obtener
+  RSpec.describe App do
+    describe '3. Obtener teatro: ' do
+      it '3.1 Conexión con backend' do
+        url = 'test/conexion'
+        test = App.new(url)
+        test.get()
+        expect(test.response.code).to eq(200)
+      end
+      it '3.2 Obtener teatro' do
+        teatro_id = '5aceaad732e9f229ab9e83b5'
+        url = 'teatro/obtener/' + teatro_id
+        test = App.new(url)
+        test.get()
+        puts test.response.body
+        expect(test.response.code).to eq(200)
+        expect(test.response.body).not_to include('error')
+        expect(test.response.body).to include('foto_menu')
+        expect(test.response.body).to include('imagen_id')
+        expect(test.response.body).to include('foto_detalle')
+        expect(test.response.body).to include('nombre')
+        expect(test.response.body).to include('titulo')
+        expect(test.response.body).to include('descripcion')
+        expect(test.response.body).to include('elenco')
+        expect(test.response.body).to include('equipo')
+        expect(test.response.body).to include('programacion')
+        expect(test.response.body).to include('comienza')
+        expect(test.response.body).to include('finaliza')
+        expect(test.response.body).to include('organizador')
+        expect(test.response.body).to include('fechas')
+        expect(test.response.body).to include('lugar')
+      end
+    end
+  end
+end
+
 #crear
-editar
+#editar
+obtener
