@@ -37,17 +37,22 @@ def crear
             'Diseño de luces: Jesús Reyes',
             'Dirección General: Fernando Castro',
             'Producción: Compañía de Teatro Físico',
-          ]
+          ],
           :programacion => 'Fecha: Del 17 de mayo al 25 de junio (6 semanas)Días: De Jueves a Lunes <br>Hora: 8:30pm, Domingos (7:00pm)',
-          :comienza => 'mayo 17 @ 8:30 pm ',
-          :finaliza => 'junio 25 @ 10:30 pm ',
+          :comienza => 'mayo 17 @ 8:30 pm',
+          :finaliza => 'junio 25 @ 10:30 pm',
           :organizador => 'Centro Cultural de la Universidad de Lima',
           :fechas => [
-
+            '2016-05-18',
+            '2016-05-19',
+            '2016-05-20',
+            '2016-05-21',
+            '2016-05-22',
+            '2016-05-23',
           ],
           :lugar => '5acea95fa181e7288381c640'
         }
-        url = 'teatro/crear?data=' + servicio.to_json
+        url = 'teatro/crear?data=' + teatro.to_json
         test = App.new(url)
         test.post()
         puts test.response.body
