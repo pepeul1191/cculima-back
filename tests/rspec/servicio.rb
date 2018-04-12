@@ -73,5 +73,5 @@ def editar
   end
 end
 
-#crear
-editar
+crear
+#editar
