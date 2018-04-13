@@ -137,11 +137,11 @@ def eliminar
           :editados => [
           ],
           :eliminados => [
-            '5acd859113392c1330750e64',
-            '5acd86eda7404c13f2fd3e21',
-            '5acd8726a4059d143967fd93',
-            '5acd8813d4ca7d15ca54a0ca',
-            '5acd91515010cd18c66d5866',
+            '5ad09f95a1e72f5bdde6191f',
+            '5ad09f96a1e72f5bdde61924',
+            '5ad09f97a1e72f5bdde61929',
+            '5ad09f99a1e72f5bdde6192e',
+            '5ad09f9ba1e72f5bdde61933',
           ]
         }.to_json
         url = 'ambiente/guardar?data=' + data
@@ -185,7 +185,7 @@ def listar
   end
 end
 
-crear
+#crear
 #editar
-#eliminar
+eliminar
 #listar

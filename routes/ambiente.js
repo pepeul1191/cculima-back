@@ -1,5 +1,6 @@
 'use strict';
 var models = require('../config/models');
+var async = require('async');
 
 module.exports = [
   {
@@ -118,27 +119,36 @@ module.exports = [
       var eliminados = data['eliminados'];
       var _id = request.query._id;
       var error = false;
-      var promises = [];
-      eliminados.forEach(function(eliminado) {
-
-          promises.push(models.Ambiente.findByIdAndRemove(eliminado, function(err, doc){
-            if (err){
-              //console.log("TRUE");
-              return true;
-            }else{
-              //console.log("FALSE");
-              return false;
-            }
-          }));
-
+      var tests = [];
+      async.each(eliminados, function(eliminado_id, callback){
+        models.Ambiente.findByIdAndRemove(eliminado_id, function(err, doc){
+          if (err){
+            callback(err);
+            return;
+          }else{
+            callback();
+          }
+        });
+      }, function(err){
+        if(err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en eliminar los ambientes',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          var rpta = {
+            'tipo_mensaje': 'success',
+            'mensaje': [
+              'Se ha registrado los cambios en los ambientes',
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }
       });
-
-
-      promises.then(values => {
-        console.log(values); // [3, 1337, "foo"] 
-      });
-
-      reply(JSON.stringify('promises'));
     }
   },
 ];
