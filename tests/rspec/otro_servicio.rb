@@ -57,5 +57,42 @@ def editar
   end
 end
 
+def eliminar
+  RSpec.describe App do
+    describe '3. Eliminar servicios otross: ' do
+      it '3.1 Conexión con backend' do
+        url = 'test/conexion'
+        test = App.new(url)
+        test.get()
+        expect(test.response.code).to eq(200)
+      end
+      it '3.2 Eliminar servicios otross' do
+        data = {
+          :nuevos => [
+          ],
+          :editados => [
+          ],
+          :eliminados => [
+            "5ace8e2bdb34b91ec3e954f4",
+            "5ad2013532cc2f16f339cab1",
+            "5ad2013732cc2f16f339cab2",
+            "5ad2013732cc2f16f339cab3",
+            "5ad2013832cc2f16f339cab4",
+          ]
+        }.to_json
+        url = 'servicio/otro/guardar?data=' + data
+        test = App.new(url)
+        test.post()
+        puts test.response.body
+        expect(test.response.code).to eq(200)
+        expect(test.response.body).not_to include('error')
+        expect(test.response.body).to include('Se ha registrado los cambios en los servicios-otros')
+        expect(test.response.body).to include('success')
+      end
+    end
+  end
+end
+
 #crear
-editar
+#editar
+eliminar
