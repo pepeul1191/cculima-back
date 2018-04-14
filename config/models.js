@@ -95,8 +95,113 @@ var Teatro = db.mongoose.model('teatros',
   )
 );
 
+var StandUp = db.mongoose.model('stand_ups',
+  new db.Schema(
+    {
+      foto_menu: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      foto_detalle: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      nombre: { type: String, required: true },
+      titulo: { type: String, required: true },
+      descripcion: { type: String, required: true },
+      comienza: { type: String, required: true },
+      finaliza: { type: String, required: true },
+      organizador: { type: String, required: true },
+      fechas: [
+        { type: Date, required: true },
+      ],
+      lugar: { type: db.Schema.Types.ObjectId, required: true },
+    }
+  )
+);
+
+var Concierto = db.mongoose.model('conciertos',
+  new db.Schema(
+    {
+      foto_menu: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      foto_detalle: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      nombre: { type: String, required: true },
+      titulo: { type: String, required: true },
+      descripcion: { type: String, required: true },
+      comienza: { type: String, required: true },
+      finaliza: { type: String, required: true },
+      organizador: { type: String, required: true },
+      fechas: [
+        { type: Date, required: true },
+      ],
+      lugar: { type: db.Schema.Types.ObjectId, required: true },
+    }
+  )
+);
+
+var Exposicion = db.mongoose.model('exposiciones',
+  new db.Schema(
+    {
+      foto_menu: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      foto_detalle: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      nombre: { type: String, required: true },
+      titulo: { type: String, required: true },
+      descripcion: { type: String, required: true },
+      comienza: { type: String, required: true },
+      finaliza: { type: String, required: true },
+      organizador: { type: String, required: true },
+      fechas: [
+        { type: Date, required: true },
+      ],
+      lugar: { type: db.Schema.Types.ObjectId, required: true },
+    }
+  )
+);
+
+var Concurso = db.mongoose.model('concursos',
+  new db.Schema(
+    {
+      foto_menu: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      foto_detalle: {
+        imagen_id: { type: String, required: true },
+        url: { type: String, required: true },
+      },
+      nombre: { type: String, required: true },
+      titulo: { type: String, required: true },
+      parrafo_izq: { type: String, required: true },
+      parrafo_der: { type: String, required: true },
+      cronograma: { type: String, required: true },
+      jurados: [
+        {
+          imagen_id: { type: String, required: true },
+          url: { type: String, required: true },
+        }
+      ],
+    }
+  )
+);
+
 exports.Blog = Blog;
 exports.Ambiente = Ambiente;
 exports.Servicio = Servicio;
 exports.OtroServicio = OtroServicio;
 exports.Teatro = Teatro;
+exports.StandUp = StandUp;
+exports.Concierto = Concierto;
+exports.Exposicion = Exposicion;
+exports.Concurso = Concurso;
