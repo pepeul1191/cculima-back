@@ -1,5 +1,6 @@
 'use strict';
 var models = require('../config/models');
+var async = require('async');
 
 module.exports = [
   {
@@ -119,6 +120,51 @@ module.exports = [
       var _id = request.params.teatro_id;
       models.Teatro.findOne({_id: _id},function(err, doc){
         reply(JSON.stringify(doc));
+      });
+    }
+  },
+  {
+    method: ['POST'],
+    path: 'guardar',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var data = JSON.parse(request.query.data);
+      var eliminados = data['eliminados'];
+      var _id = request.query._id;
+      var error = false;
+      var tests = [];
+      async.each(eliminados, function(eliminado_id, callback){
+        models.Teatro.findByIdAndRemove(eliminado_id, function(err, doc){
+          if (err){
+            callback(err);
+            return;
+          }else{
+            callback();
+          }
+        });
+      }, function(err){
+        if(err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en eliminar los teatros',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          var rpta = {
+            'tipo_mensaje': 'success',
+            'mensaje': [
+              'Se ha registrado los cambios en los teatros',
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }
       });
     }
   },

@@ -170,6 +170,40 @@ def obtener
   end
 end
 
+def eliminar
+  RSpec.describe App do
+    describe '3. Eliminar teatros: ' do
+      it '3.1 Conexión con backend' do
+        url = 'test/conexion'
+        test = App.new(url)
+        test.get()
+        expect(test.response.code).to eq(200)
+      end
+      it '3.2 Eliminar teatros' do
+        data = {
+          :nuevos => [
+          ],
+          :editados => [
+          ],
+          :eliminados => [
+            "5aceaaa532e9f229ab9e83b4",
+            "5aceaad732e9f229ab9e83b5",
+          ]
+        }.to_json
+        url = 'teatro/guardar?data=' + data
+        test = App.new(url)
+        test.post()
+        puts test.response.body
+        expect(test.response.code).to eq(200)
+        expect(test.response.body).not_to include('error')
+        expect(test.response.body).to include('Se ha registrado los cambios en los teatros')
+        expect(test.response.body).to include('success')
+      end
+    end
+  end
+end
+
 #crear
 #editar
-obtener
+#obtener
+eliminar
