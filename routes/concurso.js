@@ -104,7 +104,7 @@ module.exports = [
       });
     }
   },
-  /*{
+  {
     method: ['POST'],
     path: 'guardar',
     config: {
@@ -148,5 +148,5 @@ module.exports = [
         }
       });
     }
-  },*/
+  },
 ];
