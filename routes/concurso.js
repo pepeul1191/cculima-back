@@ -40,7 +40,7 @@ module.exports = [
       });
     }
   },
-  /*{
+  {
     method: ['POST'],
     path: 'editar',
     config: {
@@ -71,17 +71,14 @@ module.exports = [
             }
             reply(JSON.stringify(rpta));
           }else{
-            concurso.nombre = data.nombre
-            concurso.subtitulo = data.subtitulo
-            concurso.parrafo_izq = data.parrafo_izq
-            concurso.parrafo_der = data.parrafo_der
-            concurso.latitud = data.latitud
-            concurso.longitud = data.longitud
-            concurso.direccion = data.direccion
-            concurso.lefono = data.lefono
-            concurso.foto_princial = data.foto_princial
-            concurso.foto_menu = data.foto_menu
-            concurso.fotos = data. fotos
+            concurso.nombre = data.nombre;
+            concurso.titulo = data.titulo;
+            concurso.parrafo_izq = data.parrafo_izq;
+            concurso.parrafo_der = data.parrafo_der;
+            concurso.cronograma = data.cronograma;
+            concurso.foto_detalle = data.foto_detalle;
+            concurso.foto_menu = data.foto_menu;
+            concurso.jurados = data.jurados;
             concurso.save(function (err, updatedDoc) {
               if (err){
                 var rpta = {
@@ -106,7 +103,7 @@ module.exports = [
         }
       });
     }
-  },*/
+  },
   /*{
     method: ['POST'],
     path: 'guardar',
