@@ -11,7 +11,7 @@ const constants = require('./config/constants');
 
 server.connection({
   host: 'localhost',
-  port: 5000,
+  port: 5010,
   routes: {
     cors: true,
     files: {

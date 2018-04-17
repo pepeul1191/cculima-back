@@ -151,4 +151,18 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['GET'],
+    path: 'listar',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      models.Ambiente.find({},function(err, documents){
+        reply(JSON.stringify(documents));
+      });
+    }
+  },
 ];
