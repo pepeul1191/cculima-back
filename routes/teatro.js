@@ -168,4 +168,18 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['GET'],
+    path: 'listar',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      models.Teatro.find({},function(err, documents){
+        reply(JSON.stringify(documents));
+      });
+    }
+  },
 ]

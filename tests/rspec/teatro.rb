@@ -203,7 +203,7 @@ def eliminar
   end
 end
 
-#crear
+crear
 #editar
 #obtener
-eliminar
+#eliminar
