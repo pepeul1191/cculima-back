@@ -21,17 +21,17 @@ var Ambiente = db.mongoose.model('ambientes',
       direccion: { type: String, required: true },
       telefono: { type: String, required: true },
       foto_princial: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       foto_menu: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       fotos: [
         {
-          imagen_id: { type: String, required: true },
-          url: { type: String, required: true },
+          imagen_id: { type: String, },
+          url: { type: String },
         }
       ],
     }
@@ -47,8 +47,8 @@ var Servicio = db.mongoose.model('servicios',
       longitud: { type: Number, required: true },
       direccion: { type: String, required: true },
       foto: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
     }
   )
@@ -67,12 +67,12 @@ var Teatro = db.mongoose.model('teatros',
   new db.Schema(
     {
       foto_menu: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       foto_detalle: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
@@ -99,12 +99,12 @@ var StandUp = db.mongoose.model('stand_ups',
   new db.Schema(
     {
       foto_menu: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       foto_detalle: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
@@ -124,12 +124,12 @@ var Concierto = db.mongoose.model('conciertos',
   new db.Schema(
     {
       foto_menu: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       foto_detalle: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
@@ -149,12 +149,12 @@ var Exposicion = db.mongoose.model('exposiciones',
   new db.Schema(
     {
       foto_menu: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       foto_detalle: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
@@ -174,12 +174,12 @@ var Concurso = db.mongoose.model('concursos',
   new db.Schema(
     {
       foto_menu: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       foto_detalle: {
-        imagen_id: { type: String, required: true },
-        url: { type: String, required: true },
+        imagen_id: { type: String, },
+        url: { type: String },
       },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
@@ -188,8 +188,8 @@ var Concurso = db.mongoose.model('concursos',
       cronograma: { type: String, required: true },
       jurados: [
         {
-          imagen_id: { type: String, required: true },
-          url: { type: String, required: true },
+          imagen_id: { type: String, },
+          url: { type: String },
         }
       ],
     }
