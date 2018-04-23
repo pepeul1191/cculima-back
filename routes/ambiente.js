@@ -49,9 +49,6 @@ module.exports = [
     },
     handler: function (request, reply) {
       var data = JSON.parse(request.query.data);
-      console.log("1 ++++++++++++++++++++++++++++++");
-      console.log(data);
-      console.log("2 ++++++++++++++++++++++++++++++");
       var ambiente = new models.Ambiente({
         nombre: data['nombre'],
         subtitulo: data['subtitulo'],
@@ -123,10 +120,74 @@ module.exports = [
             ambiente.latitud = data.latitud
             ambiente.longitud = data.longitud
             ambiente.direccion = data.direccion
-            ambiente.lefono = data.lefono
+            ambiente.telefono = data.telefono
             ambiente.foto_princial = data.foto_princial
             ambiente.foto_menu = data.foto_menu
             ambiente.fotos = data. fotos
+            ambiente.save(function (err, updatedDoc) {
+              if (err){
+                var rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en editar el ambiente',
+                    err.toString()
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }else{
+                var rpta = {
+                  'tipo_mensaje': 'success',
+                  'mensaje': [
+                    'Se ha editado el ambiente',
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }
+            });
+          }
+        }
+      });
+    }
+  },
+  {
+    method: ['POST'],
+    path: 'editar_detalle',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var data = JSON.parse(request.query.data);
+      var _id = data['_id'];
+      models.Ambiente.findById(_id, function(err, ambiente){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el ambiente a editar',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(ambiente == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento a editar no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            ambiente.nombre = data.nombre
+            ambiente.subtitulo = data.subtitulo
+            ambiente.parrafo_izq = data.parrafo_izq
+            ambiente.parrafo_der = data.parrafo_der
+            ambiente.latitud = data.latitud
+            ambiente.longitud = data.longitud
+            ambiente.direccion = data.direccion
+            ambiente.telefono = data.telefono
             ambiente.save(function (err, updatedDoc) {
               if (err){
                 var rpta = {
