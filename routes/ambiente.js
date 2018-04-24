@@ -1,5 +1,6 @@
 'use strict';
 var models = require('../config/models');
+var database  = require('../config/database');
 var async = require('async');
 
 module.exports = [
@@ -58,6 +59,7 @@ module.exports = [
         longitud: data['longitud'],
         direccion: data['direccion'],
         telefono: data['telefono'],
+        fotos: [],
       });
       ambiente.save(function (err, createdDoc) {
         if (err){
@@ -326,6 +328,113 @@ module.exports = [
           }
         });
       }
+  },
+  {
+    method: ['POST'],
+    path: 'galeria_guardar',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var data = JSON.parse(request.query.data);
+      var nuevos = data['nuevos'];
+      var editados = data['editados'];
+      var eliminados = data['eliminados'];
+      var ambiente_id = data['extra']['ambiente_id']; //
+      var array_nuevos = [];
+      var rpta = '';
+      models.Ambiente.findById(ambiente_id, function(err, ambiente){
+          if (err){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Se ha producido un error en buscar el ambiente a añadir imagen principal',
+                err.toString()
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            if(ambiente == null){
+              var rpta = {
+                'tipo_mensaje': 'error',
+                'mensaje': [
+                  'Documento a editar no se encuentra en la base de datos'
+                ]
+              }
+              reply(JSON.stringify(rpta));
+            }else{
+              try {
+                var fotos = ambiente.fotos;
+                nuevos.forEach(function(nuevo) {
+                  var nuevo_id = database.generate_id();
+                  var embedded = {
+                    '_id': nuevo_id,
+                    'nombre': nuevo['nombre'],
+                    'imagen_id': nuevo['imagen_id'],
+                  };
+
+                  fotos.push(embedded);
+                  var temp = {
+                    'temporal': nuevo['_id'] ,
+                    'nuevo_id': nuevo_id,
+                  };
+                  array_nuevos.push(temp);
+                });
+                editados.forEach(function(editado) {
+                  fotos.forEach(function(foto){
+                    if (editado['_id'] == foto['_id']){
+                      foto['nombre'] = editado['nombre'];
+                      foto['imagen_id'] = editado['imagen_id'];
+                    }
+                  });
+                });
+                eliminados.forEach(function(eliminado) {
+                  var temps = [];
+                  fotos.forEach(function(foto){
+                    if (eliminado['_id'] != foto['_id']){
+                      temps.push(foto);
+                    }
+                  });
+                  fotos = temps;
+                });
+                ambiente.fotos = fotos;
+                ambiente.save(function (err, updatedDoc) {
+                  if (err){
+                    var rpta = {
+                      'tipo_mensaje': 'error',
+                      'mensaje': [
+                        'Se ha producido un error en guardar las fotos del ambiente en le base de datos',
+                        err.toString()
+                      ]
+                    }
+                    reply(JSON.stringify(rpta));
+                  }else{
+                    rpta = {
+                      'tipo_mensaje': 'success',
+                      'mensaje': [
+                        'Se ha registrado los cambios en los departamentos',
+                        array_nuevos,
+                      ]
+                    };
+                    reply(JSON.stringify(rpta));
+                  }
+                });
+              } catch (err) {
+                rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en guardar las fotos del ambiente',
+                    err.toString()
+                  ]
+                };
+                reply(JSON.stringify(rpta));
+              }
+            }
+          }
+        });
+    }
   },
   {
     method: ['POST'],

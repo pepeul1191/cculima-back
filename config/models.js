@@ -25,7 +25,7 @@ var Ambiente = db.mongoose.model('ambientes',
       fotos: [
         {
           imagen_id: { type: String, },
-          url: { type: String },
+          nombre: { type: String },
         }
       ],
     }
