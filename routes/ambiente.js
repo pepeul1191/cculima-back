@@ -215,6 +215,63 @@ module.exports = [
   },
   {
     method: ['POST'],
+    path: 'asociar_imagen_princial',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var ambiente_id = request.query.ambiente_id;
+      var imagen_principal_id = request.query.imagen_principal_id;
+      models.Ambiente.findById(ambiente_id, function(err, ambiente){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el ambiente a añadir imagen princial',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(ambiente == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento a editar no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            ambiente.foto_princial = imagen_principal_id;
+            ambiente.save(function (err, updatedDoc) {
+              if (err){
+                var rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en editar el ambiente con su imagen princial',
+                    err.toString()
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }else{
+                var rpta = {
+                  'tipo_mensaje': 'success',
+                  'mensaje': [
+                    'Se ha agreado una imagen principal al ambiente',
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }
+            });
+          }
+        }
+      });
+    }
+  },
+  {
+    method: ['POST'],
     path: 'guardar',
     config: {
       auth: false,

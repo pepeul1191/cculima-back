@@ -20,14 +20,8 @@ var Ambiente = db.mongoose.model('ambientes',
       longitud: { type: Number, required: true },
       direccion: { type: String, required: true },
       telefono: { type: String, required: true },
-      foto_princial: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
-      foto_menu: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
+      foto_princial: { type: String, },
+      foto_menu: { type: String, },
       fotos: [
         {
           imagen_id: { type: String, },
