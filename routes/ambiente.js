@@ -395,7 +395,8 @@ module.exports = [
                 eliminados.forEach(function(eliminado) {
                   var temps = [];
                   fotos.forEach(function(foto){
-                    if (eliminado['_id'] != foto['_id']){
+
+                    if (eliminado != foto['_id']){
                       temps.push(foto);
                     }
                   });
@@ -416,7 +417,7 @@ module.exports = [
                     rpta = {
                       'tipo_mensaje': 'success',
                       'mensaje': [
-                        'Se ha registrado los cambios en los departamentos',
+                        'Se ha registrado los cambios en la galería de ambientes',
                         array_nuevos,
                       ]
                     };
