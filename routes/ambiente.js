@@ -121,7 +121,7 @@ module.exports = [
             ambiente.longitud = data.longitud
             ambiente.direccion = data.direccion
             ambiente.telefono = data.telefono
-            ambiente.foto_princial = data.foto_princial
+            ambiente.foto_principal = data.foto_principal
             ambiente.foto_menu = data.foto_menu
             ambiente.fotos = data. fotos
             ambiente.save(function (err, updatedDoc) {
@@ -215,7 +215,7 @@ module.exports = [
   },
   {
     method: ['POST'],
-    path: 'asociar_imagen_princial',
+    path: 'asociar_imagen_principal',
     config: {
       auth: false,
       pre: [
@@ -229,7 +229,7 @@ module.exports = [
           var rpta = {
             'tipo_mensaje': 'error',
             'mensaje': [
-              'Se ha producido un error en buscar el ambiente a añadir imagen princial',
+              'Se ha producido un error en buscar el ambiente a añadir imagen principal',
               err.toString()
             ]
           }
@@ -244,13 +244,13 @@ module.exports = [
             }
             reply(JSON.stringify(rpta));
           }else{
-            ambiente.foto_princial = imagen_principal_id;
+            ambiente.foto_principal = imagen_principal_id;
             ambiente.save(function (err, updatedDoc) {
               if (err){
                 var rpta = {
                   'tipo_mensaje': 'error',
                   'mensaje': [
-                    'Se ha producido un error en editar el ambiente con su imagen princial',
+                    'Se ha producido un error en editar el ambiente con su imagen principal',
                     err.toString()
                   ]
                 }
@@ -269,6 +269,63 @@ module.exports = [
         }
       });
     }
+  },
+  {
+    method: ['POST'],
+    path: 'asociar_imagen_menu',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var ambiente_id = request.query.ambiente_id;
+      var imagen_menu_id = request.query.imagen_menu_id;
+      models.Ambiente.findById(ambiente_id, function(err, ambiente){
+          if (err){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Se ha producido un error en buscar el ambiente a añadir imagen principal',
+                err.toString()
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            if(ambiente == null){
+              var rpta = {
+                'tipo_mensaje': 'error',
+                'mensaje': [
+                  'Documento a editar no se encuentra en la base de datos'
+                ]
+              }
+              reply(JSON.stringify(rpta));
+            }else{
+              ambiente.foto_menu = imagen_menu_id;
+              ambiente.save(function (err, updatedDoc) {
+                if (err){
+                  var rpta = {
+                    'tipo_mensaje': 'error',
+                    'mensaje': [
+                      'Se ha producido un error en editar el ambiente con su imagen principal',
+                      err.toString()
+                    ]
+                  }
+                  reply(JSON.stringify(rpta));
+                }else{
+                  var rpta = {
+                    'tipo_mensaje': 'success',
+                    'mensaje': [
+                      'Se ha agreado una imagen menu al ambiente',
+                    ]
+                  }
+                  reply(JSON.stringify(rpta));
+                }
+              });
+            }
+          }
+        });
+      }
   },
   {
     method: ['POST'],
