@@ -299,4 +299,46 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['POST'],
+    path: 'crear_detalle',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var data = JSON.parse(request.query.data);
+      var servicio = new models.Servicio({
+        titulo: data['titulo'],
+        descripcion: data['descripcion'],
+        latitud: data['latitud'],
+        longitud: data['longitud'],
+        latitud: data['latitud'],
+        direccion: data['direccion'],
+        foto: '',
+      });
+      servicio.save(function (err, createdDoc) {
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en registrar el servicio',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          var rpta = {
+            'tipo_mensaje': 'success',
+            'mensaje': [
+              'Se ha registrado el servicio',
+              createdDoc._id.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }
+      });
+    }
+  },
 ];

@@ -40,10 +40,7 @@ var Servicio = db.mongoose.model('servicios',
       latitud: { type: Number, required: true },
       longitud: { type: Number, required: true },
       direccion: { type: String, required: true },
-      foto: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
+      foto: { type: String },
     }
   )
 );

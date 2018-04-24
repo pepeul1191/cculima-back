@@ -395,7 +395,6 @@ module.exports = [
                 eliminados.forEach(function(eliminado) {
                   var temps = [];
                   fotos.forEach(function(foto){
-
                     if (eliminado != foto['_id']){
                       temps.push(foto);
                     }
