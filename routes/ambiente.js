@@ -59,6 +59,8 @@ module.exports = [
         longitud: data['longitud'],
         direccion: data['direccion'],
         telefono: data['telefono'],
+        foto_menu: '',
+        foto_principal: '',
         fotos: [],
       });
       ambiente.save(function (err, createdDoc) {
@@ -182,14 +184,14 @@ module.exports = [
             }
             reply(JSON.stringify(rpta));
           }else{
-            ambiente.nombre = data.nombre
-            ambiente.subtitulo = data.subtitulo
-            ambiente.parrafo_izq = data.parrafo_izq
-            ambiente.parrafo_der = data.parrafo_der
-            ambiente.latitud = data.latitud
-            ambiente.longitud = data.longitud
-            ambiente.direccion = data.direccion
-            ambiente.telefono = data.telefono
+            ambiente.nombre = data.nombre;
+            ambiente.subtitulo = data.subtitulo;
+            ambiente.parrafo_izq = data.parrafo_izq;
+            ambiente.parrafo_der = data.parrafo_der;
+            ambiente.latitud = data.latitud;
+            ambiente.longitud = data.longitud;
+            ambiente.direccion = data.direccion;
+            ambiente.telefono = data.telefono;
             ambiente.save(function (err, updatedDoc) {
               if (err){
                 var rpta = {
@@ -492,6 +494,88 @@ module.exports = [
     handler: function (request, reply) {
       models.Ambiente.find({},function(err, documents){
         reply(JSON.stringify(documents));
+      });
+    }
+  },
+  {
+    method: ['GET'],
+    path: 'obtener/{_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      models.Ambiente.findOne({_id: request.params._id}, function(err, document){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el ambiente',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(document == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento buscado no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            var rpta = {
+              'nombre': document.nombre,
+              'subtitulo': document.subtitulo,
+              'parrafo_izq': document.parrafo_izq,
+              'parrafo_der': document.parrafo_der,
+              'latitud': document.latitud,
+              'longitud': document.longitud,
+              'direccion': document.direccion,
+              'telefono': document.telefono,
+              'foto_menu': document.foto_menu,
+              'foto_principal': document.foto_principal,
+            };
+            reply(JSON.stringify(rpta));
+          }
+        }
+      });
+    }
+  },
+  {
+    method: ['GET'],
+    path: 'listar_galeria/{_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      models.Ambiente.findOne({_id: request.params._id}, function(err, document){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar la galeria del ambiente',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(document == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento buscado no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            reply(JSON.stringify(document.fotos));
+          }
+        }
       });
     }
   },
