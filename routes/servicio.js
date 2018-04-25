@@ -341,4 +341,61 @@ module.exports = [
       });
     }
   },
+  {
+  method: ['POST'],
+  path: 'asociar_foto',
+  config: {
+    auth: false,
+    pre: [
+    ],
+  },
+  handler: function (request, reply) {
+    var servicio_id = request.query.servicio_id;
+    var foto_id = request.query.foto_id;
+    models.Servicio.findById(servicio_id, function(err, servicio){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el servicio a añadir imagen principal',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(servicio == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento a editar no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            servicio.foto = foto_id;
+            servicio.save(function (err, updatedDoc) {
+              if (err){
+                var rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en editar el servicio con su imagen principal',
+                    err.toString()
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }else{
+                var rpta = {
+                  'tipo_mensaje': 'success',
+                  'mensaje': [
+                    'Se ha agreado una imagen menu al servicio',
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }
+            });
+          }
+        }
+      });
+    }
+  },
 ];
