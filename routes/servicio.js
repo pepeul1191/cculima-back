@@ -398,4 +398,47 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['GET'],
+    path: 'obtener/{_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      models.Servicio.findOne({_id: request.params._id}, function(err, document){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el servicio',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(document == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento buscado no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            var rpta = {
+              'titulo': document.titulo,
+              'descripcion': document.descripcion,
+              'latitud': document.latitud,
+              'longitud': document.longitud,
+              'direccion': document.direccion,
+              'foto_id': document.foto,
+            };
+            reply(JSON.stringify(rpta));
+          }
+        }
+      });
+    }
+  },
 ];
