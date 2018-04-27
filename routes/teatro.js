@@ -192,18 +192,6 @@ module.exports = [
   },
   handler: function (request, reply) {
     var data = JSON.parse(request.query.data);
-    /*
-    _id: $("#lblIdTeatro").html(),
-    nombre: $("#txtNombre").val(),
-    titulo: $("#txtTtitulo").val(),
-    descripcion: CKEDITOR.instances.txtDescripcion.getData(),
-    programacion: CKEDITOR.instances.txtProgramacion.getData(),
-    organizador: $("#txtOrganizador").val(),
-    comienza: $("#txtComienza").val(),
-    finaliza: $("#txtFinaliza").val(),
-    longitud: $("#txtLongitud").val(),
-    lugar: $("#cbmAmbientes").val(),
-    */
     var teatro = new models.Teatro({
       nombre: data['nombre'],
       titulo: data['titulo'],
@@ -238,6 +226,80 @@ module.exports = [
           ]
         }
         reply(JSON.stringify(rpta));
+      }
+    });
+  }
+},
+{
+  method: ['POST'],
+  path: 'editar_detalle',
+  config: {
+    auth: false,
+    pre: [
+    ],
+  },
+  handler: function (request, reply) {
+    var data = JSON.parse(request.query.data);
+    var _id = data['_id'];
+    models.Teatro.findById(_id, function(err, teatro){
+      if (err){
+        var rpta = {
+          'tipo_mensaje': 'error',
+          'mensaje': [
+            'Se ha producido un error en buscar el teatro a editar',
+            err.toString()
+          ]
+        }
+        reply(JSON.stringify(rpta));
+      }else{
+        if(teatro == null){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Documento a editar no se encuentra en la base de datos'
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          /*
+          nombre: data['nombre'],
+          titulo: data['titulo'],
+          descripcion: data['descripcion'],
+          programacion: data['programacion'],
+          organizador: data['organizador'],
+          comienza: data['comienza'],
+          finaliza: data['finaliza'],
+          lugar: data['lugar'],
+          */
+          teatro.nombre = data.nombre;
+          teatro.titulo = data.titulo;
+          teatro.descripcion = data.descripcion;
+          teatro.programacion = data.programacion;
+          teatro.organizador = data.organizador;
+          teatro.comienza = data.comienza;
+          teatro.finaliza = data.finaliza;
+          teatro.lugar = data.lugar;
+          teatro.save(function (err, updatedDoc) {
+            if (err){
+              var rpta = {
+                'tipo_mensaje': 'error',
+                'mensaje': [
+                  'Se ha producido un error en editar el teatro',
+                  err.toString()
+                ]
+              }
+              reply(JSON.stringify(rpta));
+            }else{
+              var rpta = {
+                'tipo_mensaje': 'success',
+                'mensaje': [
+                  'Se ha editado el teatro',
+                ]
+              }
+              reply(JSON.stringify(rpta));
+            }
+          });
+        }
       }
     });
   }
