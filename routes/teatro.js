@@ -182,4 +182,64 @@ module.exports = [
       });
     }
   },
+  {
+  method: ['POST'],
+  path: 'crear_detalle',
+  config: {
+    auth: false,
+    pre: [
+    ],
+  },
+  handler: function (request, reply) {
+    var data = JSON.parse(request.query.data);
+    /*
+    _id: $("#lblIdTeatro").html(),
+    nombre: $("#txtNombre").val(),
+    titulo: $("#txtTtitulo").val(),
+    descripcion: CKEDITOR.instances.txtDescripcion.getData(),
+    programacion: CKEDITOR.instances.txtProgramacion.getData(),
+    organizador: $("#txtOrganizador").val(),
+    comienza: $("#txtComienza").val(),
+    finaliza: $("#txtFinaliza").val(),
+    longitud: $("#txtLongitud").val(),
+    lugar: $("#cbmAmbientes").val(),
+    */
+    var teatro = new models.Teatro({
+      nombre: data['nombre'],
+      titulo: data['titulo'],
+      descripcion: data['descripcion'],
+      programacion: data['programacion'],
+      organizador: data['organizador'],
+      comienza: data['comienza'],
+      finaliza: data['finaliza'],
+      lugar: data['lugar'],
+      foto_menu: '',
+      foto_detalle: '',
+      elenco: [],
+      equipo: [],
+      fechas: [],
+    });
+    teatro.save(function (err, createdDoc) {
+      if (err){
+        var rpta = {
+          'tipo_mensaje': 'error',
+          'mensaje': [
+            'Se ha producido un error en registrar el teatro',
+            err.toString()
+          ]
+        }
+        reply(JSON.stringify(rpta));
+      }else{
+        var rpta = {
+          'tipo_mensaje': 'success',
+          'mensaje': [
+            'Se ha registrado el teatro',
+            createdDoc._id.toString()
+          ]
+        }
+        reply(JSON.stringify(rpta));
+      }
+    });
+  }
+},
 ]

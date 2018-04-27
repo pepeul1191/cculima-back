@@ -57,14 +57,8 @@ var OtroServicio = db.mongoose.model('servicios_otros',
 var Teatro = db.mongoose.model('teatros',
   new db.Schema(
     {
-      foto_menu: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
-      foto_detalle: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
+      foto_menu: { type: String },
+      foto_detalle: { type: String },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
       descripcion: { type: String, required: true },

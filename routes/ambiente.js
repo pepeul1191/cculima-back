@@ -499,6 +499,28 @@ module.exports = [
   },
   {
     method: ['GET'],
+    path: 'listar_select',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      models.Ambiente.find({},function(err, documents){
+        var rpta = [];
+        documents.forEach(function(doc) {
+          var temp = {
+            id: doc['_id'],
+            nombre: doc['nombre'],
+          };
+          rpta.push(temp);
+        });
+        reply(JSON.stringify(rpta));
+      });
+    }
+  },
+  {
+    method: ['GET'],
     path: 'obtener/{_id}',
     config: {
       auth: false,
