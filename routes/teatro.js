@@ -617,4 +617,61 @@ module.exports = [
       });
     }
 },
+{
+  method: ['POST'],
+  path: 'asociar_calendario',
+  config: {
+    auth: false,
+    pre: [
+    ],
+  },
+  handler: function (request, reply) {
+    var teatro_id = request.query.teatro_id;
+    var fechas = JSON.parse(request.query.fechas);
+    models.Teatro.findById(teatro_id, function(err, teatro){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el teatro a añadir calendario',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(teatro == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento a editar no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            teatro.fechas = fechas;
+            teatro.save(function (err, updatedDoc) {
+              if (err){
+                var rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en editar el teatro con su calendario',
+                    err.toString()
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }else{
+                var rpta = {
+                  'tipo_mensaje': 'success',
+                  'mensaje': [
+                    'Se ha agreado un calendario al teatro',
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }
+            });
+          }
+        }
+      });
+    }
+},
 ]
