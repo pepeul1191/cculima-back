@@ -514,11 +514,6 @@ module.exports = [
   handler: function (request, reply) {
     var teatro_id = request.query.teatro_id;
     var imagen_menu_id = request.query.imagen_menu_id;
-    console.log("1 +++++++++++++++++++++++++++");
-    console.log(teatro_id);
-    console.log("2 +++++++++++++++++++++++++++");
-    console.log(imagen_menu_id);
-    console.log("3 +++++++++++++++++++++++++++");
     models.Teatro.findById(teatro_id, function(err, teatro){
         if (err){
           var rpta = {
@@ -555,6 +550,63 @@ module.exports = [
                   'tipo_mensaje': 'success',
                   'mensaje': [
                     'Se ha agreado una imagen menú al teatro',
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }
+            });
+          }
+        }
+      });
+    }
+},
+{
+  method: ['POST'],
+  path: 'asociar_imagen_detalle',
+  config: {
+    auth: false,
+    pre: [
+    ],
+  },
+  handler: function (request, reply) {
+    var teatro_id = request.query.teatro_id;
+    var imagen_detalle_id = request.query.imagen_detalle_id;
+    models.Teatro.findById(teatro_id, function(err, teatro){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el teatro a añadir imagen de detalle',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(teatro == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento a editar no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            teatro.foto_detalle = imagen_detalle_id;
+            teatro.save(function (err, updatedDoc) {
+              if (err){
+                var rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en editar el teatro con su imagen de detalle',
+                    err.toString()
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }else{
+                var rpta = {
+                  'tipo_mensaje': 'success',
+                  'mensaje': [
+                    'Se ha agreado una imagen detalle al teatro',
                   ]
                 }
                 reply(JSON.stringify(rpta));
