@@ -63,7 +63,10 @@ var Teatro = db.mongoose.model('teatros',
       titulo: { type: String, required: true },
       descripcion: { type: String, required: true },
       elenco: [
-        { type: String, required: true },
+        {
+          elenco_id: { type: String, },
+          nombre: { type: String },
+        }
       ],
       equipo: [
         { type: String, required: true },
