@@ -673,5 +673,56 @@ module.exports = [
         }
       });
     }
-},
+  },
+  {
+    method: ['GET'],
+    path: 'listar_elenco/{teatro_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var _id = request.params.teatro_id;
+      models.Teatro.findOne({_id: _id},function(err, doc){
+        reply(JSON.stringify(doc.elenco));
+      });
+    }
+  },
+  {
+    method: ['GET'],
+    path: 'listar_equipo/{teatro_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var _id = request.params.teatro_id;
+      models.Teatro.findOne({_id: _id},function(err, doc){
+        reply(JSON.stringify(doc.equipo));
+      });
+    }
+  },
+  {
+    method: ['GET'],
+    path: 'obtener_calendario/{teatro_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var _id = request.params.teatro_id;
+      models.Teatro.findOne({_id: _id},function(err, doc){
+        var rpta = [];
+        doc.fechas.forEach(function(fecha) {
+          var tempFecha = fecha.toJSON();
+          var temp = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getUTCDate();
+          rpta.push(temp);
+        });
+        reply(JSON.stringify(rpta));
+      });
+    }
+  },
 ]
