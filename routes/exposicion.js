@@ -328,4 +328,61 @@ module.exports = [
         });
       }
     },
+    {
+      method: ['POST'],
+      path: 'asociar_imagen_menu',
+      config: {
+        auth: false,
+        pre: [
+        ],
+      },
+      handler: function (request, reply) {
+        var exposicion_id = request.query.exposicion_id;
+        var imagen_menu_id = request.query.imagen_menu_id;
+        models.Exposicion.findById(exposicion_id, function(err, exposicion){
+          if (err){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Se ha producido un error en buscar la exposición a añadir imagen de menú',
+                err.toString()
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            if(exposicion == null){
+              var rpta = {
+                'tipo_mensaje': 'error',
+                'mensaje': [
+                  'Documento a editar no se encuentra en la base de datos'
+                ]
+              }
+              reply(JSON.stringify(rpta));
+            }else{
+              exposicion.foto_menu = imagen_menu_id;
+              exposicion.save(function (err, updatedDoc) {
+                if (err){
+                  var rpta = {
+                    'tipo_mensaje': 'error',
+                    'mensaje': [
+                      'Se ha producido un error en editar la exposición con su imagen de menú',
+                      err.toString()
+                    ]
+                  }
+                  reply(JSON.stringify(rpta));
+                }else{
+                  var rpta = {
+                    'tipo_mensaje': 'success',
+                    'mensaje': [
+                      'Se ha agreado una imagen menú al exposicion',
+                    ]
+                  }
+                  reply(JSON.stringify(rpta));
+                }
+              });
+            }
+          }
+        });
+      }
+    },
 ];
