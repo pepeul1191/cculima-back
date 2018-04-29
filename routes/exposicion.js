@@ -271,4 +271,61 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['POST'],
+    path: 'asociar_calendario',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var exposicion_id = request.query.exposicion_id;
+      var fechas = JSON.parse(request.query.fechas);
+      models.Exposicion.findById(exposicion_id, function(err, exposicion){
+          if (err){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Se ha producido un error en buscar el exposicion a añadir calendario',
+                err.toString()
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            if(exposicion == null){
+              var rpta = {
+                'tipo_mensaje': 'error',
+                'mensaje': [
+                  'Documento a editar no se encuentra en la base de datos'
+                ]
+              }
+              reply(JSON.stringify(rpta));
+            }else{
+              exposicion.fechas = fechas;
+              exposicion.save(function (err, updatedDoc) {
+                if (err){
+                  var rpta = {
+                    'tipo_mensaje': 'error',
+                    'mensaje': [
+                      'Se ha producido un error en editar el exposición con su calendario',
+                      err.toString()
+                    ]
+                  }
+                  reply(JSON.stringify(rpta));
+                }else{
+                  var rpta = {
+                    'tipo_mensaje': 'success',
+                    'mensaje': [
+                      'Se ha agreado un calendario al exposición',
+                    ]
+                  }
+                  reply(JSON.stringify(rpta));
+                }
+              });
+            }
+          }
+        });
+      }
+    },
 ];
