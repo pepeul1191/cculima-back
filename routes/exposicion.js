@@ -442,4 +442,40 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['GET'],
+    path: 'obtener/{exposicion_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var _id = request.params.exposicion_id;
+      models.Exposicion.findOne({_id: _id},function(err, doc){
+        reply(JSON.stringify(doc));
+      });
+    }
+  },
+  {
+    method: ['GET'],
+    path: 'obtener_calendario/{exposicion_id}',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var _id = request.params.exposicion_id;
+      models.Exposicion.findOne({_id: _id},function(err, doc){
+        var rpta = [];
+        doc.fechas.forEach(function(fecha) {
+          var tempFecha = fecha.toJSON();
+          var temp = fecha.getFullYear() + "-" + (fecha.getMonth() + 1) + "-" + fecha.getUTCDate();
+          rpta.push(temp);
+        });
+        reply(JSON.stringify(rpta));
+      });
+    }
+  },
 ];
