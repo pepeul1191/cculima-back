@@ -208,4 +208,67 @@ module.exports = [
       });
     }
   },
+  {
+    method: ['POST'],
+    path: 'editar_detalle',
+    config: {
+      auth: false,
+      pre: [
+      ],
+    },
+    handler: function (request, reply) {
+      var data = JSON.parse(request.query.data);
+      var _id = data['_id'];
+      models.Exposicion.findById(_id, function(err, exposicion){
+        if (err){
+          var rpta = {
+            'tipo_mensaje': 'error',
+            'mensaje': [
+              'Se ha producido un error en buscar el exposicion a editar',
+              err.toString()
+            ]
+          }
+          reply(JSON.stringify(rpta));
+        }else{
+          if(exposicion == null){
+            var rpta = {
+              'tipo_mensaje': 'error',
+              'mensaje': [
+                'Documento a editar no se encuentra en la base de datos'
+              ]
+            }
+            reply(JSON.stringify(rpta));
+          }else{
+            exposicion.nombre = data.nombre;
+            exposicion.titulo = data.titulo;
+            exposicion.descripcion = data.descripcion;
+            exposicion.organizador = data.organizador;
+            exposicion.comienza = data.comienza;
+            exposicion.finaliza = data.finaliza;
+            exposicion.lugar = data.lugar;
+            exposicion.save(function (err, updatedDoc) {
+              if (err){
+                var rpta = {
+                  'tipo_mensaje': 'error',
+                  'mensaje': [
+                    'Se ha producido un error en editar el exposición',
+                    err.toString()
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }else{
+                var rpta = {
+                  'tipo_mensaje': 'success',
+                  'mensaje': [
+                    'Se ha editado el exposición',
+                  ]
+                }
+                reply(JSON.stringify(rpta));
+              }
+            });
+          }
+        }
+      });
+    }
+  },
 ];
