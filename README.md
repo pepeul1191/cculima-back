@@ -26,6 +26,10 @@ Para restaurar
 
     $ mongorestore -d cculima db/cculima
 
+Para corregir el error ENOSPC en caso de presentarse:
+
+    $ echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+
 ---
 
 Fuentes:

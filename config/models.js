@@ -139,14 +139,8 @@ var Concierto = db.mongoose.model('conciertos',
 var Exposicion = db.mongoose.model('exposiciones',
   new db.Schema(
     {
-      foto_menu: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
-      foto_detalle: {
-        imagen_id: { type: String, },
-        url: { type: String },
-      },
+      foto_menu: { type: String },
+      foto_detalle: { type: String },
       nombre: { type: String, required: true },
       titulo: { type: String, required: true },
       descripcion: { type: String, required: true },
